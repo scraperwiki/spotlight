@@ -532,6 +532,16 @@ function (Graph, Collection, Model, View, d3) {
     });
 
     describe('calculateLinearTicks', function () {
+
+      describe('supplying a divisor', function () {
+        it('should divide through the ticks as expected', function () {
+          var ticks = Graph.prototype.calculateLinearTicks([0, 7000], 5, 10);
+          expect(ticks.values).toEqual([0, 200, 400, 600, 800]);
+          expect(ticks.extent).toEqual([0, 800]);
+          expect(ticks.step).toEqual(200);
+        });
+      });
+
       describe('extending the extent', function () {
         it('should extend the top limit beyond the max', function () {
           var ticks = Graph.prototype.calculateLinearTicks([0, 7000], 5);

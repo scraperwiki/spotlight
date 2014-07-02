@@ -215,7 +215,11 @@ function (View, d3, XAxis, YAxis, YAxisRight, Line, Stack, LineLabel, Hover, Cal
      * @param minimumTickCount
      * @return {Object}
      */
-    calculateLinearTicks: function (extent, minimumTickCount) {
+    calculateLinearTicks: function (extent, minimumTickCount, divisor) {
+
+      if (divisor) {
+        extent = _.map(extent, function(num) { return num / divisor; });
+      }
 
       if (extent[0] >= extent[1]) {
         throw new Error('Upper bound must be larger than lower.');
