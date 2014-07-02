@@ -34,17 +34,29 @@ define([
     duration: function (value, options) {
       _.defaults(options, {
         unit: 'ms',
+        inputFormat: 'ms',
         pad: true
       });
 
       var divisor = 1;
-      if (options.unit === 's') {
-        divisor = 1000;
-      } else if (options.unit === 'm') {
-        divisor = 60000;
-        options.dps = 0;
+      var output;
+      if (options.inputFormat === 'ms') {
+        if (options.unit === 's') {
+          divisor = 1000;
+        } else if (options.unit === 'm') {
+          divisor = 60000;
+        }
+        output = formatters.number(value / divisor, options) + options.unit;
       }
-      return formatters.number(value / divisor, options) + options.unit;
+      else if (options.inputFormat === 's') {
+        if (options.unit === 'm') {
+          divisor = 60;
+          options.dps = 0;
+          output = formatters.number(Math.floor(value / divisor), options) + options.unit;
+          output += ' ' + formatters.number(value % divisor, options) + 's';
+        }
+      }
+      return output;
     },
 
     currency: function (value, options) {
