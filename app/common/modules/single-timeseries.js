@@ -40,7 +40,8 @@ function (Collection) {
     visualisationOptions: function () {
       return {
         valueAttr: 'uniqueEvents',
-        totalAttr: 'mean'
+        totalAttr: 'mean',
+        formatOptions: this.model.get('format-options') || { type: 'number', magnitude: true, pad: true }
       };
     }
 
