@@ -15,10 +15,7 @@ function (Graph) {
         },
         stack: {
           view: this.sharedComponents.stack,
-          options: {
-            drawCursorLine: true,
-            formatOptions: this.formatOptions
-          }
+          options: { formatOptions: this.formatOptions }
         },
         hover: { view: this.sharedComponents.hover }
       };
